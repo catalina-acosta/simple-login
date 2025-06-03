@@ -1,3 +1,26 @@
+<?php
+
+session_start(); // necessary to access the data of the session
+
+$errors = [
+    'login' => $_SESSION['login_error'] ?? '', // this error messsages are retrieved from the session
+    'register' => $_SESSION['register_error'] ?? '', // if no error is there, an empty string is shown
+
+];
+
+$activeForm = $_SESSION['active_form'] ?? 'login'; // determines which form is active
+
+session_unset(); // method that removes all information from previous sessions but session remains active
+
+function showError($error) { // used to display error messages on the form
+    return !empty($error) ? "<p class='error-message'>$error</p>" : '';
+} 
+
+function isActiveFrom($formName, $activeForm) {
+    return $formName === $activeFrom ? 'active' : '';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +34,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="form-box active" id="login-form">
+        <div class="form-box <?= isActiveFrom('login', $activeForm);?>" id="login-form">
             <form action="login_register.php" method="post">
                 <h2>Login</h2>
+                <?= showError($errors['login']); ?>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit" name="login">Login</button>
@@ -21,9 +45,10 @@
             </form>
         </div>
 
-        <div class="form-box" id="register-form">
+        <div class="form-box <?= isActiveFrom('register', $activeForm);?>" id="register-form">
             <form action="login_register.php" method="post">
                 <h2>Register</h2>
+                <?= showError($errors['register']); ?>
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>

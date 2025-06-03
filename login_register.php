@@ -18,22 +18,23 @@ if (isset($_POST['register'])) { // listens to the action of the form register
         $conn->query("INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', '$role')");
     }
 
-    header("Location: index.php");
-    exit();
+    header("Location: index.php"); // redirect to home
+    exit(); // stop all scripts 
 }
 
 // condition to handle login
-if (isset($_POST['login'])) {
+if (isset($_POST['login'])) { // isset function listens to click of login button
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $result = $conn->query("SELECT * FROM users WHERE email = '$email'");
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['password'])) {
+    $result = $conn->query("SELECT * FROM users WHERE email = '$email'"); // this variable stores the sql query that searched for the email in the db
+    if ($result->num_rows > 0) { // if user found
+        $user = $result->fetch_assoc(); // fetches the information associated to the user
+        if (password_verify($password, $user['password'])) { // checks entered password with encrypted password in the db
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
 
+            // check which role is associated to user and redirects to the correct page
             if ($user['role'] === 'admin') {
                 header("Location: admin_page.php");
             } else {
