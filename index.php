@@ -16,8 +16,8 @@ function showError($error) { // used to display error messages on the form
     return !empty($error) ? "<p class='error-message'>$error</p>" : '';
 } 
 
-function isActiveFrom($formName, $activeForm) {
-    return $formName === $activeFrom ? 'active' : '';
+function isActiveForm($formName, $activeForm) {
+    return $formName === $activeForm ? 'active' : '';
 }
 ?>
 
@@ -34,7 +34,7 @@ function isActiveFrom($formName, $activeForm) {
 </head>
 <body>
     <div class="container">
-        <div class="form-box <?= isActiveFrom('login', $activeForm);?>" id="login-form">
+        <div class="form-box <?= isActiveForm('login', $activeForm);?>" id="login-form">
             <form action="login_register.php" method="post">
                 <h2>Login</h2>
                 <?= showError($errors['login']); ?>
@@ -45,7 +45,7 @@ function isActiveFrom($formName, $activeForm) {
             </form>
         </div>
 
-        <div class="form-box <?= isActiveFrom('register', $activeForm);?>" id="register-form">
+        <div class="form-box <?= isActiveForm('register', $activeForm);?>" id="register-form">
             <form action="login_register.php" method="post">
                 <h2>Register</h2>
                 <?= showError($errors['register']); ?>
