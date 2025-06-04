@@ -4,15 +4,15 @@ session_start();
 require_once 'config.php';
 
 // Condition to handle registration
-if (isset($_POST['register'])) { // listens to the action of the form register
+if (isset($_POST['register'])) { // checks if this field in the form exists when button clicked
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $role = $_POST['role'];
 
-    $checkEmail = $conn->query("SELECT email FROM users WHERE email = '$email'");
+    $checkEmail = $conn->query("SELECT email FROM users WHERE email = '$email'"); // query method of the mysqli class executes a query
     if($checkEmail->num_rows > 0) {
-        $_SESSION['register_error'] = 'Email is already registered!';
+        $_SESSION['register_error'] = 'Email is already registered!'; // SESSION: super global array in php. can be accessed across multiple pages for a user
         $_SESSION['active_form'] = 'register';
     } else {
         $conn->query("INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$password', '$role')");
@@ -31,7 +31,7 @@ if (isset($_POST['login'])) { // isset function listens to click of login button
     if ($result->num_rows > 0) { // if user found
         $user = $result->fetch_assoc(); // fetches the information associated to the user
         if (password_verify($password, $user['password'])) { // checks entered password with encrypted password in the db
-            $_SESSION['name'] = $user['name'];
+            $_SESSION['name'] = $user['name']; 
             $_SESSION['email'] = $user['email'];
 
             // check which role is associated to user and redirects to the correct page

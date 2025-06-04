@@ -92,15 +92,47 @@ h1 {
 }
 
 span {
-    color: #7494ec
+    color: #7494ec;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .box p {
     font-size: 22px;
+    text-align: center;
 }
 
 .box button {
     display: block;
     width: 300px;
     margin: 0 auto; 
+}
+
+.users-display table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 6px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+tr:first-child {
+    border-radius: 6px 0;
+}
+
+tr {
+    border-bottom: 1px solid  #e1e1e4;
+}
+
+th {
+    background: #f4f4f4;
 }

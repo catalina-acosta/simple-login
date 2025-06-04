@@ -25,25 +25,28 @@ $result = $conn->query($allusersquery);
         <h1>Welcome, <span><?= $_SESSION['name'];?></span></h1>
         <p>This is an <span>admin</span> page </p>
         <button onclick="window.location.href='logout.php'">Logout</button>
-        <h2>All Users</h2>
-        <table border="1" cellpadding="8" cellspacing="0">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-            </tr>
-            <?php if ($result && $result->num_rows > 0): ?>
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['name']); ?></td>
-                        <td><?= htmlspecialchars($row['email']); ?></td>
-                        <td><?= htmlspecialchars($row['role']); ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr><td colspan="3">No users found.</td></tr>
-            <?php endif; ?>
-        </table>
+        <div class="users-display">
+            <h2>All Users</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+                <?php if ($result && $result->num_rows > 0): ?> 
+                    <?php while($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['name']); ?></td>
+                            <td><?= htmlspecialchars($row['email']); ?></td>
+                            <td><?= htmlspecialchars($row['role']); ?></td>
+                            <!-- <td>edit role</td> -->
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr><td>No users found.</td></tr>
+                <?php endif; ?>
+            </table>
+        </div>
     </div>
 </body>
 </html>
